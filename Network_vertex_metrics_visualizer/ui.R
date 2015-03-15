@@ -2,7 +2,7 @@ shinyUI(fluidPage(
   titlePanel("Network Vertex Metrics Visualizer"),
   sidebarLayout(
     sidebarPanel(
-      fileInput('file1', 'Choose multiple CSV files from local drive, adjusting parameters if necessary, at MAX 10, or EVEN no.',
+      fileInput('file1', 'Choose multiple CSV files from local drive,adjusting parameters if necessary,at MAX 10, or EVEN no. of files',
                 multiple = TRUE,
                 accept=c('text/csv', 
                          'text/comma-separated-values,text/plain', 
