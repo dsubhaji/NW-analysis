@@ -20,16 +20,12 @@ shinyServer(function(input, output) {
     par(mfrow = c(len/2,2) ,oma=c(1,1,0,0), mar=rep(2,4), tcl=-0.5, mgp=c(2,1,0) )
     for(i in 1:len)
     {
-      #print(i)
-      #i <- 1
-      
+     
       file <- read.csv(input$file1[[i, 'datapath']] , header=input$header, sep=input$sep, 
              quote=input$quote)
         
-      
       hist(file$degree, xlab = i, col="RosyBrown", main=paste("Histogram of file ",i))
      
-      
     }
     
     
@@ -56,8 +52,6 @@ shinyServer(function(input, output) {
     
     for(i in 1:len)
     {
-      #print(i)
-      #i <- 1
       
       file <- read.csv(input$file1[[i, 'datapath']] , header=input$header, sep=input$sep, 
                        quote=input$quote)
@@ -86,8 +80,6 @@ shinyServer(function(input, output) {
     
     for(i in 1:len)
     {
-      #print(i)
-      #i <- 1
       
       file <- read.csv(input$file1[[i, 'datapath']] , header=input$header, sep=input$sep, 
                        quote=input$quote)
@@ -118,8 +110,6 @@ shinyServer(function(input, output) {
     
     for(i in 1:len)
     {
-      #print(i)
-      #i <- 1
       
       file <- read.csv(input$file1[[i, 'datapath']] , header=input$header, sep=input$sep, 
                        quote=input$quote)
@@ -150,9 +140,7 @@ shinyServer(function(input, output) {
     
     for(i in 1:len)
     {
-      #print(i)
-      #i <- 1
-      
+     
       file <- read.csv(input$file1[[i, 'datapath']] , header=input$header, sep=input$sep, 
                        quote=input$quote)
       
@@ -182,8 +170,6 @@ shinyServer(function(input, output) {
     
     for(i in 1:len)
     {
-      #print(i)
-      #i <- 1
       
       file <- read.csv(input$file1[[i, 'datapath']] , header=input$header, sep=input$sep, 
                        quote=input$quote)
