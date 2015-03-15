@@ -1,0 +1,55 @@
+shinyUI(fluidPage(
+  titlePanel("Network Vertex Metrics Visualizer"),
+  sidebarLayout(
+    sidebarPanel(
+      fileInput('file1', 'Choose multiple CSV files from local drive, adjusting parameters if necessary, at MAX 10, or EVEN no.',
+                multiple = TRUE,
+                accept=c('text/csv', 
+                         'text/comma-separated-values,text/plain', 
+                         '.csv')),
+      tags$hr(),
+      checkboxInput('header', 'Header', TRUE),
+      radioButtons('sep', 'Separator',
+                   c(Comma=',',
+                     Semicolon=';',
+                     Tab='\t'),
+                   ','),
+      radioButtons('quote', 'Quote',
+                   c(None='',
+                     'Double Quote'='"',
+                     'Single Quote'="'"),
+                   '"'),
+      
+      checkboxGroupInput("checkGroup", 
+                         label = h3("Checkbox group"), 
+                         choices = list("Degree" = 1, 
+                                        "Betweenness" = 2,
+                                        "Clustering Coefficient" = 3,
+                                        "Closeness" = 4,
+                                        "Eigen Centrality" = 5,
+                                        "Page Rank " = 6),
+                         selected = 1)   
+    ),
+    mainPanel(
+      tabsetPanel(
+        tabPanel("Degree",
+                 plotOutput("Degree"),               
+                 value = 1),
+        tabPanel("Betweenness",
+                 plotOutput("Betweenness"),
+                 value=2),
+        tabPanel("Clustering Coefficient",
+                 plotOutput("Clusteringcoeff"),               
+                 value = 3),
+        tabPanel("Closeness",
+                 plotOutput("Closeness"),
+                 value=4),
+        tabPanel("Eigen Centrality",
+                 plotOutput("eigen"),
+                 value=5),
+        tabPanel("Page Rank",
+                 plotOutput("pagerank"),
+                 value=6),
+        id="tabs1")
+  )
+)))
