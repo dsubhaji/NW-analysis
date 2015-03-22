@@ -45,17 +45,9 @@ for(i in 2:len)
   
   ptr <- filenames[i]  
   temp<- file_path_sans_ext(ptr)
-  #   if(file.exists(ptr))
-  #   {
-  #     setwd(file.path(paste(directory)))
-  #   }
-  #   else
-  #   {
-  #     dir.create(file.path(paste(directory)))
-  #     setwd(file.path(paste(directory)))
-  #   }
+  
   name <- paste(directory,ptr,sep="")
-  #print(name)
+  
   x <- read.graph(name,format="pajek")
   
   degree<-centralization.degree(x)$centralization
@@ -76,7 +68,7 @@ for(i in 2:len)
   
   #file1=paste(temp,"-metrics",".csv",sep="")
   write.table(cbind(temp,degree,clustcoeff,diameter,avg_degree,modularity,density,avg_path_length), 
-              file1,col.names= FALSE,append=TRUE,sep="," )
+              file1,col.names= FALSE,append=TRUE,sep="," ,na="0")
   
 }
 file <- read.csv(file1)
