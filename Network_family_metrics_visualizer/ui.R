@@ -1,5 +1,5 @@
 shinyUI(fluidPage(
-  titlePanel("Network Family Metrics Visualizer"),
+  titlePanel("Network Family Metrics calculator"),
   sidebarLayout(
     sidebarPanel(
       fileInput('file1', 'Choose CSV File',
@@ -18,17 +18,9 @@ shinyUI(fluidPage(
                    c(None='',
                      'Double Quote'='"',
                      'Single Quote'="'"),
-                   '"'),
+                   '"')
       
-      checkboxGroupInput("checkGroup", 
-                         label = h3("Checkbox group"), 
-                         choices = list("Degree" = 1, 
-                                        "Betweenness" = 2,
-                                        "Clustering Coefficient" = 3,
-                                        "Closeness" = 4,
-                                        " Eigen Centrality" = 5,
-                                        "Page Rank " = 6),
-                         selected = 1)   
+        
     ),
     mainPanel(
       tabsetPanel(
