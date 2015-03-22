@@ -30,7 +30,7 @@ for(i in 1:len)
 
     degree <- degree(x,v=V(x))
 
-    betweenness<-betweenness(x,v=V(x), directed=TRUE)
+    betweenness<-betweenness(x,v=V(x), directed=FALSE)
 
     closeness <- closeness(x, vids=V(x),mode=c("all"),normalized=TRUE)
 
@@ -38,7 +38,7 @@ for(i in 1:len)
 
     pagerank<-pagerank_temp$vector
 
-    clustcoeff <-transitivity(x,type=c("local"))
+    clustcoeff <-transitivity(x,type=c("global"))
 
     eigencentrality_temp <-evcent(x)
 
@@ -48,7 +48,7 @@ for(i in 1:len)
 
     write.table(cbind(degree,betweenness,clustcoeff,closeness,eigencentrality,pagerank), 
                 file1, row.names = FALSE,
-                col.names=c('degree','betweenness','clustcoeff','closeness','eigencentrality','pagerank'),sep=",")
+                col.names=c('degree','betweenness','clustcoeff','closeness','eigencentrality','pagerank'),sep=",", na="0")
     
 
     file <- read.csv(file1)
