@@ -160,8 +160,7 @@ if (choice==2){
     
     x <- read.graph(name,format="pajek")
     
-    
-    degree_centralization<-centralization.degree(x )$centralization
+    degree_centralization<-centralization.degree(x)$centralization
     
     # graph level centralization
     betweenness_centralization<-centralization.betweenness(x,directed=FALSE )$centralization
