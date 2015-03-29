@@ -11,13 +11,13 @@ shinyServer(function(input, output) {
     # be found.
     
     inFile <- input$file1
-    
+   
     if (is.null(inFile))
       return(NULL)
     len1 <-(input$file1)[[1]]
     len<-length(len1)
     
-      
+    #print(inFile$name)  
     par(mfrow = c(len,1) ,oma=c(1,1,0,0), mar=rep(2,4), tcl=-0.5, mgp=c(2,1,0))
     for(i in 1:len)
     {
@@ -28,7 +28,7 @@ shinyServer(function(input, output) {
              quote=input$quote)
         
       
-      hist(file$degree, xlab = i, col="RosyBrown", main=paste("Histogram of file ",i))
+      hist(file$degree, xlab = i, col="RosyBrown", main=paste("Histogram for ",inFile$name[i]))
      
       
     }
@@ -63,7 +63,7 @@ shinyServer(function(input, output) {
       file <- read.csv(input$file1[[i, 'datapath']] , header=input$header, sep=input$sep, 
                        quote=input$quote)
       
-      hist(file$betweenness,xlab = i ,col="salmon",main=paste("Histogram of file ",i))
+      hist(file$betweenness,xlab = i ,col="salmon",main=paste("Histogram for ",inFile$name[i]))
       
     }
   })
@@ -93,7 +93,7 @@ shinyServer(function(input, output) {
       file <- read.csv(input$file1[[i, 'datapath']] , header=input$header, sep=input$sep, 
                        quote=input$quote)
       
-      hist(file$clustcoeff,xlab = i,col="turquoise",main=paste("Histogram of file ",i))
+      hist(file$clustcoeff,xlab = i,col="turquoise",main=paste("Histogram for ",inFile$name[i]))
       
     }    
   })
@@ -125,7 +125,7 @@ shinyServer(function(input, output) {
       file <- read.csv(input$file1[[i, 'datapath']] , header=input$header, sep=input$sep, 
                        quote=input$quote)
       
-      hist(file$closeness,xlab = i ,col="SeaGreen",main=paste("Histogram of file ",i))
+      hist(file$closeness,xlab = i ,col="SeaGreen",main=paste("Histogram for ",inFile$name[i]))
       
     }    
   })
@@ -157,7 +157,7 @@ shinyServer(function(input, output) {
       file <- read.csv(input$file1[[i, 'datapath']] , header=input$header, sep=input$sep, 
                        quote=input$quote)
       
-      hist(file$eigencentrality,xlab = i,col="sky blue",main=paste("Histogram of file ",i))
+      hist(file$eigencentrality,xlab = i,col="sky blue",main=paste("Histogram for ",inFile$name[i]))
       
     }    
   })
@@ -189,7 +189,7 @@ shinyServer(function(input, output) {
       file <- read.csv(input$file1[[i, 'datapath']] , header=input$header, sep=input$sep, 
                        quote=input$quote)
       
-      hist(file$pagerank,xlab = i,col="grey",main=paste("Histogram of file ",i))
+      hist(file$pagerank,xlab = i,col="grey",main=paste("Histogram for ",inFile$name[i]))
       
     }    
   })
