@@ -1,5 +1,5 @@
 shinyUI(fluidPage(
-  titlePanel("Network Family Metrics calculator"),
+  titlePanel("Network Family Metrics Visualizer"),
   sidebarLayout(
     sidebarPanel(
       fileInput('file1', 'Choose CSV File',
