@@ -15,58 +15,21 @@ EXP <- as.integer(strsplit(readline(prompt), " ")[[1]])
 file1=paste("Network_Family","-metrics",".csv",sep="")
 
 if(choice==1){
-ptr <- filenames[1]
-temp<- file_path_sans_ext(ptr)
-
-name <- paste(directory,ptr,sep="")
-#print(name)
-x <- read.graph(name,format="pajek")
-
-
-degree<-centralization.degree(x,mode=c("all"))$centralization
-
-clustcoeff <-transitivity(x)
-
-diameter<-diameter(x,directed=TRUE)
-
-avg_degree<-mean(degree(x, mode=c("total")))
-
-wtc <- walktrap.community(x)
-modularity<- modularity(x, membership(wtc))
-
-density<-graph.density(x)
-
-avg_path_length<-average.path.length(x,directed=TRUE)
-
-write.csv(cbind(temp,degree,clustcoeff,diameter,avg_degree,modularity,density,avg_path_length), 
-          file1, 
-          col.names=c('File Name','degree centralization','cluster','diameter','Average Degree','modularity','density','Average Seperation'))
-
-for(i in 2:len)
-{
-  
-  ptr <- filenames[i]  
+  ptr <- filenames[1]
   temp<- file_path_sans_ext(ptr)
-  #   if(file.exists(ptr))
-  #   {
-  #     setwd(file.path(paste(directory)))
-  #   }
-  #   else
-  #   {
-  #     dir.create(file.path(paste(directory)))
-  #     setwd(file.path(paste(directory)))
-  #   }
+  
   name <- paste(directory,ptr,sep="")
   #print(name)
   x <- read.graph(name,format="pajek")
   
-  degree<-centralization.degree(x, mode=c("total"))$centralization
+  
+  degree<-centralization.degree(x,mode=c("all"))$centralization
   
   clustcoeff <-transitivity(x)
   
   diameter<-diameter(x,directed=TRUE)
   
-  avg_degree<-mean(degree(x,mode=c("all")))
+  avg_degree<-mean(degree(x, mode=c("total")))
   
   wtc <- walktrap.community(x)
   modularity<- modularity(x, membership(wtc))
@@ -75,15 +38,52 @@ for(i in 2:len)
   
   avg_path_length<-average.path.length(x,directed=TRUE)
   
+  write.csv(cbind(temp,degree,clustcoeff,diameter,avg_degree,modularity,density,avg_path_length), 
+            file1, 
+            col.names=c('File Name','degree centralization','cluster','diameter','Average Degree','modularity','density','Average Seperation'),na="0")
   
-  #file1=paste(temp,"-metrics",".csv",sep="")
-  write.table(cbind(temp,degree,clustcoeff,diameter,avg_degree,modularity,density,avg_path_length), 
-              file1,col.names= FALSE,append=TRUE,sep="," )
-  
-}
-file <- read.csv(file1)
-small <- subset(file,,c(2,EXP+2))
-write.csv(small,file1)
+  for(i in 2:len)
+  {
+    
+    ptr <- filenames[i]  
+    temp<- file_path_sans_ext(ptr)
+    #   if(file.exists(ptr))
+    #   {
+    #     setwd(file.path(paste(directory)))
+    #   }
+    #   else
+    #   {
+    #     dir.create(file.path(paste(directory)))
+    #     setwd(file.path(paste(directory)))
+    #   }
+    name <- paste(directory,ptr,sep="")
+    #print(name)
+    x <- read.graph(name,format="pajek")
+    
+    degree<-centralization.degree(x, mode=c("total"))$centralization
+    
+    clustcoeff <-transitivity(x)
+    
+    diameter<-diameter(x,directed=TRUE)
+    
+    avg_degree<-mean(degree(x,mode=c("all")))
+    
+    wtc <- walktrap.community(x)
+    modularity<- modularity(x, membership(wtc))
+    
+    density<-graph.density(x)
+    
+    avg_path_length<-average.path.length(x,directed=TRUE)
+    
+    
+    #file1=paste(temp,"-metrics",".csv",sep="")
+    write.table(cbind(temp,degree,clustcoeff,diameter,avg_degree,modularity,density,avg_path_length), 
+                file1,col.names= FALSE,append=TRUE,sep=",",na="0" )
+    
+  }
+  file <- read.csv(file1)
+  small <- subset(file,,c(2,EXP+2))
+  write.csv(small,file1,na="0")
 }
 if (choice==2){
   ptr <- filenames[1]
@@ -111,7 +111,7 @@ if (choice==2){
   
   write.csv(cbind(temp,degree,clustcoeff,diameter,avg_degree,modularity,density,avg_path_length), 
             file1, 
-            col.names=c('File Name','degree centralization','cluster','diameter','Average Degree','modularity','density','Average Seperation'))
+            col.names=c('File Name','degree centralization','cluster','diameter','Average Degree','modularity','density','Average Seperation'),na="0")
   
   for(i in 2:len)
   {
@@ -149,10 +149,10 @@ if (choice==2){
     
     #file1=paste(temp,"-metrics",".csv",sep="")
     write.table(cbind(temp,degree,clustcoeff,diameter,avg_degree,modularity,density,avg_path_length), 
-                file1,col.names= FALSE,append=TRUE,sep="," )
+                file1,col.names= FALSE,append=TRUE,sep=",",na="0" )
     
   }
   file <- read.csv(file1)
   small <- subset(file,,c(2,EXP+2))
-  write.csv(small,file1)
+  write.csv(small,file1,na="0")
 }
