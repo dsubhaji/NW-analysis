@@ -2,15 +2,14 @@ library('tools')
 library('igraph')
 library('Matrix')
 library('blockmodeling')
-choice<- readline(prompt="Enter your choice, 1. Directed Network\n2.Undirected graph\n")
+choice<- readline(prompt="Enter your choice\n1.Directed Network\n2.Undirected graph\n")
 directory <- readline(prompt="Enter The Folder Location: ")
 filenames <- list.files(path=directory,pattern="*.net")
 setwd(file.path(paste(directory)))
 man<-typeof(filenames)
 len=length(filenames)
-
-prompt <- "Select the metrics you want to calculate (space-separated list) \n
-1.Degree Centrality\n2.Avg Clusturing Coefficient\n3.Diameter\n4.Avg Degree\n5.Modularity\n6.Density\n7.Average separation\n"
+prompt<- "Select the metrics u want to calculate(space-separated list)\n"
+prompt <- "Select the metrics\n1.Degree Centratlization\n2.Betweenness-Centralization\n3.closeness-centralization\n4.eigenvector-centralization\n5.Avg Clusturing Coefficient\n6.Assortativity\n7.Diameter\n8.Avg.Degree\n9.Modularity\n10.Density\n11.Average separation\n"
 EXP <- as.integer(strsplit(readline(prompt), " ")[[1]])
 file1=paste("Network_Family","-metrics",".csv",sep="")
 
@@ -19,17 +18,27 @@ if(choice==1){
   temp<- file_path_sans_ext(ptr)
   
   name <- paste(directory,ptr,sep="")
-  #print(name)
+  
   x <- read.graph(name,format="pajek")
   
   
-  degree<-centralization.degree(x,mode=c("all"))$centralization
+  degree_centralization<-centralization.degree(x,mode=c("all"))$centralization
   
-  clustcoeff <-transitivity(x)
+  # graph level centralization
+  betweenness_centralization<-centralization.betweenness(x,directed=TRUE)$centralization
+  
+  closeness_centralization<-centralization.closeness(x,mode=c("all"))$centralization
+  
+  eigenvector_centralization<-centralization.evcent(x,directed=TRUE,options=igraph.arpack.default )$centralization
+  
+  
+  global_clustcoeff <-transitivity(x,type=c("global"))
+  
+  assortativity <-assortativity.degree(x,directed=TRUE)
   
   diameter<-diameter(x,directed=TRUE)
   
-  avg_degree<-mean(degree(x, mode=c("total")))
+  avg_degree<-((2*ecount(x))/vcount(x))
   
   wtc <- walktrap.community(x)
   modularity<- modularity(x, membership(wtc))
@@ -38,35 +47,44 @@ if(choice==1){
   
   avg_path_length<-average.path.length(x,directed=TRUE)
   
-  write.csv(cbind(temp,degree,clustcoeff,diameter,avg_degree,modularity,density,avg_path_length), 
+  write.csv(cbind(temp,degree_centralization,betweenness_centralization,
+                  closeness_centralization,eigenvector_centralization,
+                  global_clustcoeff,assortativity,
+                  diameter,avg_degree,modularity,density,avg_path_length), 
             file1, 
-            col.names=c('File Name','degree centralization','cluster','diameter','Average Degree','modularity','density','Average Seperation'),na="0")
+            col.names=c('File Name','degree-centralization','betweenness-centralization','closeness_centralization',
+                        'eigenvector-centralization','global-clustering coefficient ',
+                        'assortativity','diameter','Average Degree','modularity',
+                        'density','Average Seperation'),na="0")
   
   for(i in 2:len)
   {
     
-    ptr <- filenames[i]  
+    ptr <- filenames[i]
     temp<- file_path_sans_ext(ptr)
-    #   if(file.exists(ptr))
-    #   {
-    #     setwd(file.path(paste(directory)))
-    #   }
-    #   else
-    #   {
-    #     dir.create(file.path(paste(directory)))
-    #     setwd(file.path(paste(directory)))
-    #   }
+    
     name <- paste(directory,ptr,sep="")
-    #print(name)
+    
     x <- read.graph(name,format="pajek")
     
-    degree<-centralization.degree(x, mode=c("total"))$centralization
     
-    clustcoeff <-transitivity(x)
+    degree_centralization<-centralization.degree(x,mode=c("all"))$centralization
+    
+    # graph level centralization
+    betweenness_centralization<-centralization.betweenness(x,directed=TRUE )$centralization
+    
+    closeness_centralization<-centralization.closeness(x,mode=c("all") )$centralization
+    
+    eigenvector_centralization<-centralization.evcent(x,directed=TRUE,options=igraph.arpack.default )$centralization
+    
+    
+    global_clustcoeff <-transitivity(x,type=c("global"))
+    
+    assortativity <-assortativity.degree(x,directed=TRUE)
     
     diameter<-diameter(x,directed=TRUE)
     
-    avg_degree<-mean(degree(x,mode=c("all")))
+    avg_degree<-((2*ecount(x))/vcount(x))
     
     wtc <- walktrap.community(x)
     modularity<- modularity(x, membership(wtc))
@@ -77,7 +95,11 @@ if(choice==1){
     
     
     #file1=paste(temp,"-metrics",".csv",sep="")
-    write.table(cbind(temp,degree,clustcoeff,diameter,avg_degree,modularity,density,avg_path_length), 
+    write.table(cbind(temp,degree_centralization,betweenness_centralization,
+                      closeness_centralization,eigenvector_centralization,
+                      global_clustcoeff,assortativity,
+                      diameter,avg_degree,modularity,
+                      density,avg_path_length),
                 file1,col.names= FALSE,append=TRUE,sep=",",na="0" )
     
   }
@@ -90,17 +112,27 @@ if (choice==2){
   temp<- file_path_sans_ext(ptr)
   
   name <- paste(directory,ptr,sep="")
-  #print(name)
+  
   x <- read.graph(name,format="pajek")
   
   
-  degree<-centralization.degree(x)$centralization
+  degree_centralization<-centralization.degree(x )$centralization
   
-  clustcoeff <-transitivity(x)
+  # graph level centralization
+  betweenness_centralization<-centralization.betweenness(x,directed=FALSE )$centralization
+  
+  closeness_centralization<-centralization.closeness(x )$centralization
+  
+  eigenvector_centralization<-centralization.evcent(x,directed=FALSE,options=igraph.arpack.default )$centralization
+  
+  
+  global_clustcoeff <-transitivity(x,type=c("global"))
+  
+  assortativity <-assortativity.degree(x,directed=FALSE)
   
   diameter<-diameter(x,directed=FALSE)
   
-  avg_degree<-mean(degree(x))
+  avg_degree<-((2*ecount(x))/vcount(x))
   
   wtc <- walktrap.community(x)
   modularity<- modularity(x, membership(wtc))
@@ -109,35 +141,43 @@ if (choice==2){
   
   avg_path_length<-average.path.length(x,directed=FALSE)
   
-  write.csv(cbind(temp,degree,clustcoeff,diameter,avg_degree,modularity,density,avg_path_length), 
+  write.csv(cbind(temp,degree_centralization,betweenness_centralization,
+                  closeness_centralization,eigenvector_centralization,
+                  global_clustcoeff,assortativity,
+                  diameter,avg_degree,modularity,density,avg_path_length), 
             file1, 
-            col.names=c('File Name','degree centralization','cluster','diameter','Average Degree','modularity','density','Average Seperation'),na="0")
-  
+            col.names=c('File Name','degree-centralization','betweenness-centralization','closeness_centralization',
+                        'eigenvector-centralization','global-clustering coefficient ',
+                        'assortativity','diameter','Average Degree','modularity',
+                        'density','Average Seperation'),na="0")
   for(i in 2:len)
   {
     
-    ptr <- filenames[i]  
+    ptr <- filenames[i]
     temp<- file_path_sans_ext(ptr)
-    #   if(file.exists(ptr))
-    #   {
-    #     setwd(file.path(paste(directory)))
-    #   }
-    #   else
-    #   {
-    #     dir.create(file.path(paste(directory)))
-    #     setwd(file.path(paste(directory)))
-    #   }
+    
     name <- paste(directory,ptr,sep="")
-    #print(name)
+    
     x <- read.graph(name,format="pajek")
     
-    degree<-centralization.degree(x)$centralization
     
-    clustcoeff <-2*transitivity(x)
+    degree_centralization<-centralization.degree(x )$centralization
+    
+    # graph level centralization
+    betweenness_centralization<-centralization.betweenness(x,directed=FALSE )$centralization
+    
+    closeness_centralization<-centralization.closeness(x )$centralization
+    
+    eigenvector_centralization<-centralization.evcent(x,directed=FALSE,options=igraph.arpack.default )$centralization
+    
+    
+    global_clustcoeff <-transitivity(x,type=c("global"))
+    
+    assortativity <-assortativity.degree(x,directed=FALSE)
     
     diameter<-diameter(x,directed=FALSE)
     
-    avg_degree<-mean(degree(x))
+    avg_degree<-((2*ecount(x))/vcount(x))
     
     wtc <- walktrap.community(x)
     modularity<- modularity(x, membership(wtc))
@@ -148,7 +188,11 @@ if (choice==2){
     
     
     #file1=paste(temp,"-metrics",".csv",sep="")
-    write.table(cbind(temp,degree,clustcoeff,diameter,avg_degree,modularity,density,avg_path_length), 
+    write.table(cbind(temp,degree_centralization,betweenness_centralization,
+                      closeness_centralization,eigenvector_centralization,
+                      global_clustcoeff,assortativity,
+                      diameter,avg_degree,modularity,
+                      density,avg_path_length),
                 file1,col.names= FALSE,append=TRUE,sep=",",na="0" )
     
   }
