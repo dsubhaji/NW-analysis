@@ -31,7 +31,7 @@ shinyServer(function(input, output) {
       min <- 0
       
       
-      plot(file$X,file$degree,lwd = 2, xlab = "Network",ylab="Degree", main = paste("Line plot of file ",i),col="RosyBrown",type="l")
+      plot(file$X,file$degree,lwd = 2, xlab = "Network",ylab="Degree", main = paste("Line plot of Degree Centrality"),col="RosyBrown",type="l")
       axis(side=1, at=seq(min,max,by=1))
       #hist(file$degree, xlab = i, col="RosyBrown", main=paste("Histogram of file ",i))      
     }    
@@ -66,7 +66,7 @@ shinyServer(function(input, output) {
       file <- read.csv(input$file1[[i, 'datapath']] , header=input$header, sep=input$sep, 
                        quote=input$quote)
       
-      plot(file$X,file$clustcoeff,lwd = 2,xlab = "Network",ylab="Clustering Coefficient", main = paste("Line plot of file ",i),col="salmon",type="l")
+      plot(file$X,file$clustcoeff,lwd = 2,xlab = "Network",ylab="Clustering Coefficient", main = paste("Line plot of Average Clustering Coefficient"),col="salmon",type="l")
       axis(side=1, at=seq(min,max,by=1))
       #hist(file$clustcoeff,xlab = i ,col="salmon",main=paste("Histogram of file ",i))
       
@@ -100,7 +100,7 @@ shinyServer(function(input, output) {
       
       max <- dim(file)[1]
       min <- 0
-      plot(file$X,file$diameter,lwd = 2,xlab = "Network",ylab="Diameter", main = paste("Line plot of file ",i),col="turquoise",type="l")
+      plot(file$X,file$diameter,lwd = 2,xlab = "Network",ylab="Diameter", main = paste("Line plot of Diameter" ),col="turquoise",type="l")
       axis(side=1, at=seq(min,max,by=1))
       #  hist(file$diameter,xlab = i,col="turquoise",main=paste("Histogram of file ",i))
       
@@ -137,7 +137,7 @@ shinyServer(function(input, output) {
       max <- dim(file)[1]
       min <- 0
       
-      plot(file$X,file$avg_degree,lwd = 2,xlab = "Network",ylab="Average Degree", main = paste("Line plot of file ",i),col="SeaGreen",type="l")
+      plot(file$X,file$avg_degree,lwd = 2,xlab = "Network",ylab="Average Degree", main = paste("Line plot of Average Degree"),col="SeaGreen",type="l")
       axis(side=1, at=seq(min,max,by=1))
       #hist(file$avg_degree,xlab = i ,col="SeaGreen",main=paste("Histogram of file ",i))
       
@@ -174,7 +174,7 @@ shinyServer(function(input, output) {
       max <- dim(file)[1]
       min <- 0
       
-      plot(file$X,file$modularity,lwd = 2,xlab = "Network",ylab="Modularity", main = paste("Line plot of file ",i),col="sky blue",type="l")
+      plot(file$X,file$modularity,lwd = 2,xlab = "Network",ylab="Modularity", main = paste("Line plot of Modularity"),col="sky blue",type="l")
       axis(side=1, at=seq(min,max,by=1))
       #hist(file$modularity,xlab = i,col="sky blue",main=paste("Histogram of file ",i))
       
@@ -211,7 +211,7 @@ shinyServer(function(input, output) {
       max <- dim(file)[1]
       min <- 0
       
-      plot(file$X,file$density,lwd = 2,xlab = "Network",ylab="Density", main = paste("Line plot of file ",i),col="grey",type="l")
+      plot(file$X,file$density,lwd = 2,xlab = "Network",ylab="Density", main = paste("Line plot of Density"),col="grey",type="l")
       axis(side=1, at=seq(min,max,by=1))
       #hist(file$density,xlab = i,col="grey",main=paste("Histogram of file ",i))
       
@@ -248,7 +248,7 @@ shinyServer(function(input, output) {
       max <- dim(file)[1]
       min <- 0
       
-      plot(file$X,file$avg_path_length,lwd = 2,xlab = "Network",ylab="Average Separation", main = paste("Line plot of file ",i),col="grey",type="l")
+      plot(file$X,file$avg_path_length,lwd = 2,xlab = "Network",ylab="Average Separation", main = paste("Line plot of Average Separation "),col="grey",type="l")
       #hist(file$avg_path_length,xlab = i,col="grey",main=paste("Histogram of file ",i))
       
     }    
