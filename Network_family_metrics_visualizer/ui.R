@@ -1,7 +1,7 @@
 shinyUI(fluidPage(
   titlePanel("Network Family Metrics Visualizer"),
   sidebarLayout(
-    sidebarPanel(
+    sidebarPanel(width=3,
       fileInput('file1', 'Choose CSV File',
                 multiple = TRUE,
                 accept=c('text/csv', 
@@ -22,29 +22,41 @@ shinyUI(fluidPage(
       
         
     ),
-    mainPanel(
+    mainPanel(width=9,
       tabsetPanel(
-        tabPanel("Degree Centrality",
+        tabPanel("Degree Centralization",
                  plotOutput("Degree"),               
                  value = 1),
-        tabPanel("Average Clustering Coefficient",
+        tabPanel("Betweenness Centralization",
+                 plotOutput("Betweenness"),               
+                 value = 2),
+        tabPanel("Closeness Centralization",
+                 plotOutput("Closeness"),               
+                 value = 3),
+        tabPanel("Eigenvector Centralization",
+                 plotOutput("Eigenvector"),               
+                 value = 4),
+        tabPanel("Global Clustering Coefficient",
                  plotOutput("cluster"),
-                 value=2),
+                 value=5),
+        tabPanel("Assortativity",
+                 plotOutput("Assortativity"),               
+                 value = 6),
         tabPanel("Diameter",
                  plotOutput("diameter"),               
-                 value = 3),
+                 value = 7),
         tabPanel("Average Degree",
                  plotOutput("avgdegree"),
-                 value=4),
+                 value=8),
         tabPanel("Modularity",
                  plotOutput("modularity"),
-                 value=5),
+                 value=9),
         tabPanel("Density",
                  plotOutput("density"),
-                 value=6),
+                 value=10),
         tabPanel("Average Separation",
                  plotOutput("avgsep"),
-                 value=7),
+                 value=11),
         id="tabs1")
     )
   )))
