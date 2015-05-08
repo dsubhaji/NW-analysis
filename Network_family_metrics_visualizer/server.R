@@ -16,20 +16,20 @@ shinyServer(function(input, output) {
       return(NULL)
     len1 <-(input$file1)[[1]]
     len<-length(len1)
-          
+    
     for(i in 1:len)
     {
-    
+      
       file <- read.csv(input$file1[[i, 'datapath']] , header=input$header, sep=input$sep, 
                        quote=input$quote)
       
       max <- dim(file)[1]
       
       min <- 0
-          
+      
       plot(file$X,file$degree_centralization,lwd = 2, xlab = "Network",ylab="Degree Centraliztion", main = paste("Line plot of Degree Centrality"),col="coral",type="l")
       axis(side=1, at=seq(min,max,by=1))
-    
+      
     }    
   })
   output$Betweenness<- renderPlot({
@@ -47,9 +47,9 @@ shinyServer(function(input, output) {
       
       file <- read.csv(input$file1[[i, 'datapath']] , header=input$header, sep=input$sep, 
                        quote=input$quote)
-     
+      
       max <- dim(file)[1]
-     
+      
       min <- 0
       
       plot(file$X,file$betweenness_centralization,lwd = 2, xlab = "Network",ylab="Betweenness Centralization", main = paste("Line plot of Betweenness Centrality"),col="DarkRed",type="l")
@@ -59,7 +59,7 @@ shinyServer(function(input, output) {
   })
   output$Closeness<- renderPlot({
     
-      
+    
     inFile <- input$file1
     
     if (is.null(inFile))
@@ -72,9 +72,9 @@ shinyServer(function(input, output) {
       
       file <- read.csv(input$file1[[i, 'datapath']] , header=input$header, sep=input$sep, 
                        quote=input$quote)
-     
+      
       max <- dim(file)[1]
-    
+      
       min <- 0
       
       plot(file$X,file$closeness_centralization,lwd = 2, xlab = "Network",ylab="Closeness Centralization", main = paste("Line plot of Closeness Centrality"),col="OrangeRed",type="l")
@@ -84,7 +84,7 @@ shinyServer(function(input, output) {
   })
   output$Eigenvector<- renderPlot({
     
-       
+    
     inFile <- input$file1
     
     if (is.null(inFile))
@@ -97,7 +97,7 @@ shinyServer(function(input, output) {
       
       file <- read.csv(input$file1[[i, 'datapath']] , header=input$header, sep=input$sep, 
                        quote=input$quote)
-    
+      
       max <- dim(file)[1]
       
       min <- 0
@@ -117,8 +117,8 @@ shinyServer(function(input, output) {
       return(NULL)
     len1 <-(input$file1)[[1]]
     len<-length(len1)
-        
-        
+    
+    
     for(i in 1:len)
     {
       max <- dim(file)[1]
@@ -129,7 +129,7 @@ shinyServer(function(input, output) {
       
       plot(file$X,file$global_clustcoeff,lwd = 2,xlab = "Network",ylab="Global Clustering Coefficient", main = paste("Line plot of Average Clustering Coefficient"),col="salmon",type="l")
       axis(side=1, at=seq(min,max,by=1))
-    
+      
       
     }
   })
@@ -166,10 +166,10 @@ shinyServer(function(input, output) {
       return(NULL)
     len1 <-(input$file1)[[1]]
     len<-length(len1)
-
+    
     for(i in 1:len)
     {
-    
+      
       file <- read.csv(input$file1[[i, 'datapath']] , header=input$header, sep=input$sep, 
                        quote=input$quote)
       
@@ -177,13 +177,13 @@ shinyServer(function(input, output) {
       min <- 0
       plot(file$X,file$diameter,lwd = 2,xlab = "Network",ylab="Diameter", main = paste("Line plot of Diameter" ),col="Tomato",type="l")
       axis(side=1, at=seq(min,max,by=1))
-    
+      
       
     }    
   })
   
   output$avgdegree <- renderPlot({
-        
+    
     inFile <- input$file1
     
     if (is.null(inFile))
@@ -202,7 +202,7 @@ shinyServer(function(input, output) {
       
       plot(file$X,file$avg_degree,lwd = 2,xlab = "Network",ylab="Average Degree", main = paste("Line plot of Average Degree"),col="SeaGreen",type="l")
       axis(side=1, at=seq(min,max,by=1))
-    
+      
       
     }    
   })
@@ -228,7 +228,7 @@ shinyServer(function(input, output) {
       
       plot(file$X,file$modularity,lwd = 2,xlab = "Network",ylab="Modularity", main = paste("Line plot of Modularity"),col="sky blue",type="l")
       axis(side=1, at=seq(min,max,by=1))
-    
+      
       
     }    
   })
@@ -243,7 +243,7 @@ shinyServer(function(input, output) {
     len1 <-(input$file1)[[1]]
     len<-length(len1)
     
-      
+    
     for(i in 1:len)
     {
       
@@ -255,7 +255,7 @@ shinyServer(function(input, output) {
       
       plot(file$X,file$density,lwd = 2,xlab = "Network",ylab="Density", main = paste("Line plot of Density"),col="Black",type="l")
       axis(side=1, at=seq(min,max,by=1))
-    
+      
       
     }    
   })
@@ -281,7 +281,55 @@ shinyServer(function(input, output) {
       
       plot(file$X,file$avg_path_length,lwd = 2,xlab = "Network",ylab="Average Separation", main = paste("Line plot of Average Separation "),col="BurlyWood",type="l")
       axis(side=1, at=seq(min,max,by=1))
-          
+      
+    }    
+  })
+  output$vc <- renderPlot({
+    
+    
+    inFile <- input$file1
+    
+    if (is.null(inFile))
+      return(NULL)
+    len1 <-(input$file1)[[1]]
+    len<-length(len1)
+    
+    for(i in 1:len)
+    {
+      
+      file <- read.csv(input$file1[[i, 'datapath']] , header=input$header, sep=input$sep, 
+                       quote=input$quote)
+      
+      max <- dim(file)[1]
+      min <- 0
+      
+      plot(file$X,file$vertices,lwd = 2,xlab = "Network",ylab="Vertices", main = paste("Line plot of Vertices "),col="BurlyWood",type="l")
+      axis(side=1, at=seq(min,max,by=1))
+      
+    }    
+  })
+  output$ec <- renderPlot({
+    
+    
+    inFile <- input$file1
+    
+    if (is.null(inFile))
+      return(NULL)
+    len1 <-(input$file1)[[1]]
+    len<-length(len1)
+    
+    for(i in 1:len)
+    {
+      
+      file <- read.csv(input$file1[[i, 'datapath']] , header=input$header, sep=input$sep, 
+                       quote=input$quote)
+      
+      max <- dim(file)[1]
+      min <- 0
+      print(max)
+      plot(file$X,file$edges,lwd = 2,xlab = "Network",ylab="edges", main = paste("Line plot of Edges "),col="BurlyWood",type="l")
+      axis(side=1, at=seq(min,max,by=1))
+      
     }    
   })
 })
