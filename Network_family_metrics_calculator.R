@@ -9,7 +9,7 @@ setwd(file.path(paste(directory)))
 man<-typeof(filenames)
 len=length(filenames)
 prompt<- "Select the metrics u want to calculate(space-separated list)\n"
-prompt <- "Select the metrics\n1.Degree Centratlization\n2.Betweenness-Centralization\n3.closeness-centralization\n4.eigenvector-centralization\n5.Avg Clusturing Coefficient\n6.Assortativity\n7.Diameter\n8.Avg.Degree\n9.Modularity\n10.Density\n11.Average separation\n"
+prompt <- "Select the metrics\n1.Degree-Centratlization\n2.Betweenness-Centralization\n3.closeness-centralization\n4.eigenvector-centralization\n5.Avg Clusturing Coeff.\n6.Assortativity\n7.Diameter\n8.Avg.Degree\n9.Modularity\n10.Density\n11.Avg. separation\n12.Vertices\n13.Edges\n"
 EXP <- as.integer(strsplit(readline(prompt), " ")[[1]])
 file1=paste("Network_Family","-metrics",".csv",sep="")
 
@@ -20,7 +20,9 @@ if(choice==1){
   name <- paste(directory,ptr,sep="")
   
   x <- read.graph(name,format="pajek")
-  
+      
+  vertices<-  vcount(x)
+  edges<-ecount(x)
   
   degree_centralization<-centralization.degree(x,mode=c("all"))$centralization
   
@@ -50,12 +52,12 @@ if(choice==1){
   write.csv(cbind(temp,degree_centralization,betweenness_centralization,
                   closeness_centralization,eigenvector_centralization,
                   global_clustcoeff,assortativity,
-                  diameter,avg_degree,modularity,density,avg_path_length), 
+                  diameter,avg_degree,modularity,density,avg_path_length,vertices,edges), 
             file1, 
             col.names=c('File Name','degree-centralization','betweenness-centralization','closeness_centralization',
                         'eigenvector-centralization','global-clustering coefficient ',
                         'assortativity','diameter','Average Degree','modularity',
-                        'density','Average Seperation'),na="0")
+                        'density','Average Seperation','vertices','edges'),na="0")
   
   for(i in 2:len)
   {
@@ -67,6 +69,8 @@ if(choice==1){
     
     x <- read.graph(name,format="pajek")
     
+    vertices<-  vcount(x)
+    edges<-ecount(x)
     
     degree_centralization<-centralization.degree(x,mode=c("all"))$centralization
     
@@ -99,7 +103,7 @@ if(choice==1){
                       closeness_centralization,eigenvector_centralization,
                       global_clustcoeff,assortativity,
                       diameter,avg_degree,modularity,
-                      density,avg_path_length),
+                      density,avg_path_length,vertices,edges),
                 file1,col.names= FALSE,append=TRUE,sep=",",na="0" )
     
   }
@@ -115,6 +119,8 @@ if (choice==2){
   
   x <- read.graph(name,format="pajek")
   
+  vertices<-  vcount(x)
+  edges<-ecount(x)
   
   degree_centralization<-centralization.degree(x )$centralization
   
@@ -144,12 +150,12 @@ if (choice==2){
   write.csv(cbind(temp,degree_centralization,betweenness_centralization,
                   closeness_centralization,eigenvector_centralization,
                   global_clustcoeff,assortativity,
-                  diameter,avg_degree,modularity,density,avg_path_length), 
+                  diameter,avg_degree,modularity,density,avg_path_length,vertices,edges), 
             file1, 
             col.names=c('File Name','degree-centralization','betweenness-centralization','closeness_centralization',
                         'eigenvector-centralization','global-clustering coefficient ',
                         'assortativity','diameter','Average Degree','modularity',
-                        'density','Average Seperation'),na="0")
+                        'density','Average Seperation','vertices','edges'),na="0")
   for(i in 2:len)
   {
     
@@ -159,6 +165,9 @@ if (choice==2){
     name <- paste(directory,ptr,sep="")
     
     x <- read.graph(name,format="pajek")
+    
+    vertices<-  vcount(x)
+    edges<-ecount(x)
     
     degree_centralization<-centralization.degree(x)$centralization
     
@@ -191,7 +200,7 @@ if (choice==2){
                       closeness_centralization,eigenvector_centralization,
                       global_clustcoeff,assortativity,
                       diameter,avg_degree,modularity,
-                      density,avg_path_length),
+                      density,avg_path_length,vertices,edges),
                 file1,col.names= FALSE,append=TRUE,sep=",",na="0" )
     
   }
