@@ -121,12 +121,13 @@ shinyServer(function(input, output) {
     
     for(i in 1:len)
     {
-      max <- dim(file)[1]
-      min <- 0
+      
       
       file <- read.csv(input$file1[[i, 'datapath']] , header=input$header, sep=input$sep, 
                        quote=input$quote)
       
+      max <- dim(file)[1]
+      min <- 0
       plot(file$X,file$global_clustcoeff,lwd = 2,xlab = "Network",ylab="Global Clustering Coefficient", main = paste("Line plot of Average Clustering Coefficient"),col="salmon",type="l")
       axis(side=1, at=seq(min,max,by=1))
       
